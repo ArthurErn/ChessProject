@@ -1,9 +1,43 @@
 ﻿using board;
 using System;
 using chess;
+using System.Collections.Generic;
 
 namespace layout {
     class Layout {
+
+        public static void printGame(ChessMatch match) {
+            Layout.printBoard(match.board);
+            Console.WriteLine();
+            printCapturedPieces(match);
+            Console.WriteLine("Turn: " + match.turn);
+            Console.WriteLine("It is " + match.currentPlayer + "'s turn.");
+        }
+
+        public static void printCapturedPieces(ChessMatch match) {
+            Console.WriteLine("Captured pieces: ");
+            Console.Write("White: ");
+            printCouple(match.capturedPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            printCouple(match.capturedPieces(Color.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+            Console.WriteLine();
+
+        }
+
+        public static void printCouple(HashSet<Piece> couple) {
+            Console.Write("[");
+            foreach (Piece x in couple) {
+                Console.Write(x + ", ");
+
+            }
+            Console.Write("]");
+        }
+
         public static void printBoard(Board board) {
 
             for (int i = 0; i < board.linhas; i++) {

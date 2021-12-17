@@ -13,12 +13,8 @@ namespace ChessProject {
                 while (!match.finished) {
                     try {
                         Console.Clear();
-
-                        Layout.printBoard(match.board);
-                        Console.WriteLine();
-
-                        Console.WriteLine("Turn: " + match.turn);
-                        Console.WriteLine("It's your turn: " + match.currentPlayer);
+                        Layout.printGame(match);
+                        
 
                         Console.WriteLine();
 
