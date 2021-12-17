@@ -11,28 +11,35 @@ namespace ChessProject {
                 ChessMatch match = new ChessMatch();
 
                 while (!match.finished) {
-                    Console.Clear();
+                    try {
+                        Console.Clear();
 
-                    Layout.printBoard(match.board);
+                        Layout.printBoard(match.board);
+                        Console.WriteLine();
 
-                    Console.WriteLine();
-                    Console.WriteLine();
+                        Console.WriteLine("Turn: " + match.turn);
+                        Console.WriteLine("It's your turn: " + match.currentPlayer);
 
-                    Console.Write("From: ");
-                    Position start = Layout.readChessPosition().toPosition();
+                        Console.WriteLine();
 
-                    bool[,] possiblePositions = match.board.piece(start).possibleMovements();
+                        Console.Write("From: ");
+                        Position start = Layout.readChessPosition().toPosition();
+                        match.validateStartPosition(start);
+                        bool[,] possiblePositions = match.board.piece(start).possibleMovements();
 
-                    Console.Clear();
-                    Layout.printBoard(match.board, possiblePositions);
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.Write("To: ");
-                    Position end = Layout.readChessPosition().toPosition();
-
-                    match.executeMove(start, end);
-                }
-
+                        Console.Clear();
+                        Layout.printBoard(match.board, possiblePositions);
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.Write("To: ");
+                        Position end = Layout.readChessPosition().toPosition();
+                        match.validateEndPosition(start, end);
+                        match.makePlay(start, end);
+                    } catch (BoardException e) {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                    }
                 Layout.printBoard(match.board);
             } catch (BoardException e) {
                 Console.WriteLine(e.Message);
