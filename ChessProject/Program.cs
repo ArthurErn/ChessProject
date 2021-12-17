@@ -36,8 +36,12 @@ namespace ChessProject {
                         Console.WriteLine(e.Message);
                         Console.ReadLine();
                     }
-                    }
+                 }
+                Console.Clear();
                 Layout.printBoard(match.board);
+                Console.WriteLine();
+                Console.WriteLine("XEQUE MATE!");
+                Console.ReadLine();
             } catch (BoardException e) {
                 Console.WriteLine(e.Message);
             }

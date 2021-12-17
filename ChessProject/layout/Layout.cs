@@ -11,10 +11,16 @@ namespace layout {
             Console.WriteLine();
             printCapturedPieces(match);
             Console.WriteLine("Turn: " + match.turn);
-            Console.WriteLine("It is " + match.currentPlayer + "'s turn.");
-            if (match.check) {
-                Console.WriteLine("CHECK!");
+            if (!match.finished) {
+                Console.WriteLine("It is " + match.currentPlayer + "'s turn.");
+                if (match.check) {
+                    Console.WriteLine("CHECK!");
+                }
+            } else {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine(match.currentPlayer + " is the winner color!");
             }
+            
         }
 
         public static void printCapturedPieces(ChessMatch match) {
@@ -92,7 +98,7 @@ namespace layout {
 
         public static void printPiece(Piece piece) {
             if (piece == null) {
-                Console.Write(" - ");
+                Console.Write(" ه ");
             } else {
                 if (piece.color == Color.White) {
                     Console.Write(piece);

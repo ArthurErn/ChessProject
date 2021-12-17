@@ -56,6 +56,30 @@ namespace chess {
             return false;
         }
 
+        public bool testCheckmate(Color color) {
+            if (!isInCheck(color)) {
+                return false;            
+            }
+            foreach (Piece x in piecesInGame(color)) {
+                bool[,] mat = x.possibleMovements();
+                for (int i = 0; i < board.linhas; i++) {
+                    for (int j = 0; j < board.colunas; j++) {
+                        if (mat[i, j]) {
+                            Position start = x.position;
+                            Position end = new Position(i, j);
+                            Piece capturedPiece = executeMove(start, end);
+                            bool testCheck = isInCheck(color);
+                            undoMovement(start, end, capturedPiece);
+                            if (!testCheck) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void insertNewPiece(char coluna, int linha, Piece piece) {
             board.insertPiece(piece, new ChessPosition(coluna, linha).toPosition());
             pieces.Add(piece);
@@ -65,11 +89,37 @@ namespace chess {
             insertNewPiece('a', 1, new Rook(board, Color.White));
             insertNewPiece('h', 1, new Rook(board, Color.White));
             insertNewPiece('e', 1, new King(board, Color.White));
-            insertNewPiece('e', 4, new Rook(board, Color.White));
+            insertNewPiece('c', 1, new Bishop(board, Color.White));
+            insertNewPiece('f', 1, new Bishop(board, Color.White));
+            insertNewPiece('g', 1, new Knight(board, Color.White));
+            insertNewPiece('b', 1, new Knight(board, Color.White));
+            insertNewPiece('d', 1, new Queen(board, Color.White));
+            insertNewPiece('a', 2, new Pawn(board, Color.White));
+            insertNewPiece('b', 2, new Pawn(board, Color.White));
+            insertNewPiece('c', 2, new Pawn(board, Color.White));
+            insertNewPiece('d', 2, new Pawn(board, Color.White));
+            insertNewPiece('e', 2, new Pawn(board, Color.White));
+            insertNewPiece('f', 2, new Pawn(board, Color.White));
+            insertNewPiece('g', 2, new Pawn(board, Color.White));
+            insertNewPiece('h', 2, new Pawn(board, Color.White));
 
+
+            insertNewPiece('e', 8, new King(board, Color.Black));
             insertNewPiece('a', 8, new Rook(board, Color.Black));
             insertNewPiece('h', 8, new Rook(board, Color.Black));
-            insertNewPiece('e', 8, new King(board, Color.Black));
+            insertNewPiece('c', 8, new Bishop(board, Color.Black));
+            insertNewPiece('f', 8, new Bishop(board, Color.Black));
+            insertNewPiece('g', 8, new Knight(board, Color.Black));
+            insertNewPiece('b', 8, new Knight(board, Color.Black));
+            insertNewPiece('d', 8, new Queen(board, Color.Black));
+            insertNewPiece('a', 7, new Pawn(board, Color.Black));
+            insertNewPiece('b', 7, new Pawn(board, Color.Black));
+            insertNewPiece('c', 7, new Pawn(board, Color.Black));
+            insertNewPiece('d', 7, new Pawn(board, Color.Black));
+            insertNewPiece('e', 7, new Pawn(board, Color.Black));
+            insertNewPiece('f', 7, new Pawn(board, Color.Black));
+            insertNewPiece('g', 7, new Pawn(board, Color.Black));
+            insertNewPiece('h', 7, new Pawn(board, Color.Black));
         }
 
         public void undoMovement(Position start, Position end, Piece capturedPiece) {
@@ -93,8 +143,13 @@ namespace chess {
             } else {
                 check = false;
             }
-            turn++;
-            changePlayer();
+            if (testCheckmate(enemy(currentPlayer))) {
+                finished = true;
+            } else {
+                turn++;
+                changePlayer();
+            }
+            
 
         }
 
@@ -111,7 +166,7 @@ namespace chess {
         }
 
         public void validateEndPosition(Position start, Position end) {
-            if (!board.piece(start).canMoveTo(end)) {
+            if (!board.piece(start).possibleMovement(end)) {
                 throw new BoardException("Invalid end position!");
             }
         }
