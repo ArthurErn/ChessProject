@@ -88,7 +88,7 @@ namespace chess {
         public void insertPieces() {
             insertNewPiece('a', 1, new Rook(board, Color.White));
             insertNewPiece('h', 1, new Rook(board, Color.White));
-            insertNewPiece('e', 1, new King(board, Color.White));
+            insertNewPiece('e', 1, new King(board, Color.White, this));
             insertNewPiece('c', 1, new Bishop(board, Color.White));
             insertNewPiece('f', 1, new Bishop(board, Color.White));
             insertNewPiece('g', 1, new Knight(board, Color.White));
@@ -104,7 +104,7 @@ namespace chess {
             insertNewPiece('h', 2, new Pawn(board, Color.White));
 
 
-            insertNewPiece('e', 8, new King(board, Color.Black));
+            insertNewPiece('e', 8, new King(board, Color.Black, this));
             insertNewPiece('a', 8, new Rook(board, Color.Black));
             insertNewPiece('h', 8, new Rook(board, Color.Black));
             insertNewPiece('c', 8, new Bishop(board, Color.Black));
@@ -130,6 +130,20 @@ namespace chess {
                 captured.Remove(capturedPiece);
             }
             board.insertPiece(piece, start);
+            if (piece is King && end.coluna == start.coluna + 2) {
+                Position startRook = new Position(start.linha, start.coluna + 3);
+                Position endRook = new Position(start.linha, start.coluna + 1);
+                Piece Rook = board.removePiece(endRook);
+                Rook.decrementPieceMoveQuantity();
+                board.insertPiece(Rook, startRook);
+            }
+            if (piece is King && end.coluna == start.coluna - 2) {
+                Position startRook = new Position(start.linha, start.coluna - 4);
+                Position endRook = new Position(start.linha, start.coluna - 1);
+                Piece Rook = board.removePiece(endRook);
+                Rook.decrementPieceMoveQuantity();
+                board.insertPiece(Rook, startRook);
+            }
         }
 
         public void makePlay(Position start, Position end) {
@@ -209,6 +223,21 @@ namespace chess {
             board.insertPiece(p, end);
             if (capturedPiece != null) {
                 captured.Add(capturedPiece);
+            }
+            //castle
+            if (p is King && end.coluna == start.coluna + 2) {
+                Position startRook = new Position(start.linha, start.coluna + 3);
+                Position endRook = new Position(start.linha, start.coluna + 1);
+                Piece Rook = board.removePiece(startRook);
+                Rook.incrementPieceMoveQuantity();
+                board.insertPiece(Rook, endRook);
+            }
+            if (p is King && end.coluna == start.coluna - 2) {
+                Position startRook = new Position(start.linha, start.coluna - 4);
+                Position endRook = new Position(start.linha, start.coluna - 1);
+                Piece Rook = board.removePiece(startRook);
+                Rook.incrementPieceMoveQuantity();
+                board.insertPiece(Rook, endRook);
             }
             return capturedPiece;
         }

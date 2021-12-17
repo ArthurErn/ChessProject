@@ -4,8 +4,10 @@ using System;
 namespace chess {
     class Knight : Piece {
         public Knight(Board board, Color color) : base(board, color) {
+            this.match = match;
         }
 
+        private ChessMatch match;
         public override bool[,] possibleMovements() {
             bool[,] mat = new bool[board.linhas, board.colunas];
             Position pos = new Position(0, 0);
@@ -30,8 +32,12 @@ namespace chess {
             if (board.validPosition(pos) && canMove(pos)) {
                 mat[pos.linha, pos.coluna] = true;
             }
+
+            
             return mat;
         }
+
+        
 
         private bool canMove(Position pos) {
             Piece piece = board.piece(pos);
