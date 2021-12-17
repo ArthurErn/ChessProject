@@ -1,4 +1,5 @@
 ﻿using board;
+using System;
 
 namespace chess {
     class King : Piece {
@@ -58,7 +59,8 @@ namespace chess {
         }
 
         public override string ToString() {
-            return " K ";
+            
+            return " ♚ ";
         }
     }
 }

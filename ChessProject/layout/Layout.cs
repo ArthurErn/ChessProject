@@ -12,6 +12,9 @@ namespace layout {
             printCapturedPieces(match);
             Console.WriteLine("Turn: " + match.turn);
             Console.WriteLine("It is " + match.currentPlayer + "'s turn.");
+            if (match.check) {
+                Console.WriteLine("CHECK!");
+            }
         }
 
         public static void printCapturedPieces(ChessMatch match) {

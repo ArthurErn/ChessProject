@@ -13,6 +13,7 @@ namespace ChessProject {
                 while (!match.finished) {
                     try {
                         Console.Clear();
+                        Console.OutputEncoding = System.Text.Encoding.Unicode;
                         Layout.printGame(match);
                         
 
