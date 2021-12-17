@@ -1,0 +1,14 @@
+C:\Users\Vista\source\repos\ChessProject\ChessProject\bin\Debug\netcoreapp3.1\ChessProject.exe
+C:\Users\Vista\source\repos\ChessProject\ChessProject\bin\Debug\netcoreapp3.1\ChessProject.deps.json
+C:\Users\Vista\source\repos\ChessProject\ChessProject\bin\Debug\netcoreapp3.1\ChessProject.runtimeconfig.json
+C:\Users\Vista\source\repos\ChessProject\ChessProject\bin\Debug\netcoreapp3.1\ChessProject.runtimeconfig.dev.json
+C:\Users\Vista\source\repos\ChessProject\ChessProject\bin\Debug\netcoreapp3.1\ChessProject.dll
+C:\Users\Vista\source\repos\ChessProject\ChessProject\bin\Debug\netcoreapp3.1\ChessProject.pdb
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.csproj.AssemblyReference.cache
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.AssemblyInfoInputs.cache
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.AssemblyInfo.cs
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.csproj.CoreCompileInputs.cache
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.dll
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.pdb
+C:\Users\Vista\source\repos\ChessProject\ChessProject\obj\Debug\netcoreapp3.1\ChessProject.genruntimeconfig.cache
