@@ -11,12 +11,22 @@ namespace ChessProject {
                 ChessMatch match = new ChessMatch();
 
                 while (!match.finished) {
-                    //Console.Clear();
+                    Console.Clear();
+
                     Layout.printBoard(match.board);
+
                     Console.WriteLine();
                     Console.WriteLine();
+
                     Console.Write("From: ");
                     Position start = Layout.readChessPosition().toPosition();
+
+                    bool[,] possiblePositions = match.board.piece(start).possibleMovements();
+
+                    Console.Clear();
+                    Layout.printBoard(match.board, possiblePositions);
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.Write("To: ");
                     Position end = Layout.readChessPosition().toPosition();
 

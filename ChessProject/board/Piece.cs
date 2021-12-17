@@ -1,5 +1,5 @@
 ﻿namespace board {
-    class Piece {
+    abstract class Piece {
         public Piece(Board board, Color color) {
             position = null;
             this.board = board;
@@ -14,5 +14,7 @@
         public Color color { get; protected set; }
         public int qtMovement { get; protected set; }
         public Board board { get; protected set; }
+
+        public abstract bool[,] possibleMovements();
     }
 }
