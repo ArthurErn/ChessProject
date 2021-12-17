@@ -1,5 +1,6 @@
 ﻿using board;
 using System;
+using chess;
 
 namespace layout {
     class Layout {
@@ -16,10 +17,18 @@ namespace layout {
                     }
                     
                 }
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("|");
+                Console.WriteLine(" |");
             }
+            Console.WriteLine("     _____________________________");
             Console.WriteLine("     A   B   C   D   E   F   G   H");
+        }
+
+        public static ChessPosition readChessPosition() {
+            string position = Console.ReadLine();
+            char coluna = position[0];
+            int linha = int.Parse(position[1] + "");
+            return new ChessPosition(coluna, linha);
         }
 
         public static void printPiece(Piece piece) {

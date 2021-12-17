@@ -30,6 +30,16 @@
             p.position = pos;
         }
 
+        public Piece removePiece(Position pos) {
+            if (piece(pos) == null) {
+                return null;
+            }
+            Piece aux = piece(pos);
+            aux.position = null;
+            pieces[pos.linha, pos.coluna] = null;
+            return aux;
+        }
+
         public bool validPosition(Position pos) {
             if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas) {
                 return false;

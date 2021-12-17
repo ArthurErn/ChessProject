@@ -7,6 +7,9 @@
             qtMovement = 0;
         }
 
+        public void incrementPieceMoveQuantity() {
+            qtMovement++;
+        }
         public Position position { get; set; }
         public Color color { get; protected set; }
         public int qtMovement { get; protected set; }
