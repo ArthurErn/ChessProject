@@ -11,5 +11,10 @@
             this.colunas = colunas;
             pieces = new Piece[linhas, colunas];
         }
+
+        public void insertPiece(Piece p, Position pos) {
+            pieces[pos.linha, pos.coluna] = p;
+            p.position = pos;
+        }
     }
 }

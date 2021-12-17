@@ -1,6 +1,6 @@
 ﻿namespace board {
     enum Color {
-        Branca,
-        Preta
+        White,
+        Black
     }
 }

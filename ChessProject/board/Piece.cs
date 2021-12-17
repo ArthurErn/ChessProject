@@ -1,7 +1,7 @@
 ﻿namespace board {
     class Piece {
-        public Piece(Position position, Board board, Color color) {
-            this.position = position;
+        public Piece(Board board, Color color) {
+            position = null;
             this.board = board;
             this.color = color;
             qtMovement = 0;
