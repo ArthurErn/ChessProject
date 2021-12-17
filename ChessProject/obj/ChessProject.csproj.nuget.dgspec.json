@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vista\\source\\repos\\ChessProject\\ChessProject\\ChessProject.csproj": {}
+    "C:\\Users\\Vista\\Documents\\GitHub\\ChessProject\\ChessProject\\ChessProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vista\\source\\repos\\ChessProject\\ChessProject\\ChessProject.csproj": {
+    "C:\\Users\\Vista\\Documents\\GitHub\\ChessProject\\ChessProject\\ChessProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vista\\source\\repos\\ChessProject\\ChessProject\\ChessProject.csproj",
+        "projectUniqueName": "C:\\Users\\Vista\\Documents\\GitHub\\ChessProject\\ChessProject\\ChessProject.csproj",
         "projectName": "ChessProject",
-        "projectPath": "C:\\Users\\Vista\\source\\repos\\ChessProject\\ChessProject\\ChessProject.csproj",
+        "projectPath": "C:\\Users\\Vista\\Documents\\GitHub\\ChessProject\\ChessProject\\ChessProject.csproj",
         "packagesPath": "C:\\Users\\Vista\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vista\\source\\repos\\ChessProject\\ChessProject\\obj\\",
+        "outputPath": "C:\\Users\\Vista\\Documents\\GitHub\\ChessProject\\ChessProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vista\\AppData\\Roaming\\NuGet\\NuGet.Config",

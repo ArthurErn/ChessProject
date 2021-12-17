@@ -1,4 +1,4 @@
-﻿namespace layout {
+﻿namespace board {
     enum Color {
         Branca,
         Preta

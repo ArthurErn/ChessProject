@@ -1,4 +1,4 @@
-﻿namespace layout {
+﻿namespace board {
     class Position {
         public Position(int linha, int coluna) {
             this.linha = linha;

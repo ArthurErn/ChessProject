@@ -1,4 +1,4 @@
-﻿namespace layout {
+﻿namespace board {
     class Piece {
         public Piece(Position position, Board board, Color color) {
             this.position = position;
