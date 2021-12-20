@@ -10,6 +10,7 @@ namespace chess {
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
         public bool check { get; private set; }
+        public Piece vulnerableEnPassant; 
 
         public ChessMatch() {
             board = new Board(8, 8);
@@ -17,6 +18,7 @@ namespace chess {
             currentPlayer = Color.White;
             finished = false;
             check = false;
+            vulnerableEnPassant = null;
             pieces = new HashSet<Piece>();
             captured = new HashSet<Piece>();
             insertPieces();
@@ -94,14 +96,14 @@ namespace chess {
             insertNewPiece('g', 1, new Knight(board, Color.White));
             insertNewPiece('b', 1, new Knight(board, Color.White));
             insertNewPiece('d', 1, new Queen(board, Color.White));
-            insertNewPiece('a', 2, new Pawn(board, Color.White));
-            insertNewPiece('b', 2, new Pawn(board, Color.White));
-            insertNewPiece('c', 2, new Pawn(board, Color.White));
-            insertNewPiece('d', 2, new Pawn(board, Color.White));
-            insertNewPiece('e', 2, new Pawn(board, Color.White));
-            insertNewPiece('f', 2, new Pawn(board, Color.White));
-            insertNewPiece('g', 2, new Pawn(board, Color.White));
-            insertNewPiece('h', 2, new Pawn(board, Color.White));
+            insertNewPiece('a', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('b', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('c', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('d', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('e', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('f', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('g', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('h', 2, new Pawn(board, Color.White, this));
 
 
             insertNewPiece('e', 8, new King(board, Color.Black, this));
@@ -112,14 +114,14 @@ namespace chess {
             insertNewPiece('g', 8, new Knight(board, Color.Black));
             insertNewPiece('b', 8, new Knight(board, Color.Black));
             insertNewPiece('d', 8, new Queen(board, Color.Black));
-            insertNewPiece('a', 7, new Pawn(board, Color.Black));
-            insertNewPiece('b', 7, new Pawn(board, Color.Black));
-            insertNewPiece('c', 7, new Pawn(board, Color.Black));
-            insertNewPiece('d', 7, new Pawn(board, Color.Black));
-            insertNewPiece('e', 7, new Pawn(board, Color.Black));
-            insertNewPiece('f', 7, new Pawn(board, Color.Black));
-            insertNewPiece('g', 7, new Pawn(board, Color.Black));
-            insertNewPiece('h', 7, new Pawn(board, Color.Black));
+            insertNewPiece('a', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('b', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('c', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('d', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('e', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('f', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('g', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('h', 7, new Pawn(board, Color.Black, this));
         }
 
         public void undoMovement(Position start, Position end, Piece capturedPiece) {
@@ -144,6 +146,18 @@ namespace chess {
                 Rook.decrementPieceMoveQuantity();
                 board.insertPiece(Rook, startRook);
             }
+            if (piece is Pawn) {
+                if (start.coluna != end.coluna && capturedPiece == vulnerableEnPassant) {
+                    Piece pawn = board.removePiece(end);
+                    Position posP;
+                    if (pawn.color == Color.White) {
+                        posP = new Position(3, end.coluna);
+                    } else {
+                        posP = new Position(4, end.coluna);
+                    }
+                    board.insertPiece(pawn, posP);
+                }
+            }
         }
 
         public void makePlay(Position start, Position end) {
@@ -163,8 +177,12 @@ namespace chess {
                 turn++;
                 changePlayer();
             }
-            
-
+            Piece piece = board.piece(end);
+            if (piece is Pawn && (end.linha == start.linha - 2 || end.linha == start.linha + 2)) {
+                vulnerableEnPassant = piece;
+            } else {
+                vulnerableEnPassant = null;
+            }
         }
 
         public void validateStartPosition(Position pos) {
@@ -238,6 +256,19 @@ namespace chess {
                 Piece Rook = board.removePiece(startRook);
                 Rook.incrementPieceMoveQuantity();
                 board.insertPiece(Rook, endRook);
+            }
+
+            if (p is Pawn) {
+                if (start.coluna != end.coluna && capturedPiece == null) {
+                    Position posP;
+                    if (p.color == Color.White) {
+                        posP = new Position(end.linha + 1, end.coluna);
+                    } else {
+                        posP = new Position(end.linha - 1, end.coluna);
+                    }
+                    capturedPiece = board.removePiece(posP);
+                    captured.Add(capturedPiece);
+                }
             }
             return capturedPiece;
         }
