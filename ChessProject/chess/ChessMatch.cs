@@ -88,8 +88,8 @@ namespace chess {
         }
 
         public void insertPieces() {
-            insertNewPiece('a', 1, new Rook(board, Color.White));
-            insertNewPiece('h', 1, new Rook(board, Color.White));
+            /*insertNewPiece('a', 1, new Rook(board, Color.White));
+            insertNewPiece('h', 1, new Rook(board, Color.White));*/
             insertNewPiece('e', 1, new King(board, Color.White, this));
             insertNewPiece('c', 1, new Bishop(board, Color.White));
             insertNewPiece('f', 1, new Bishop(board, Color.White));
@@ -97,13 +97,13 @@ namespace chess {
             insertNewPiece('b', 1, new Knight(board, Color.White));
             insertNewPiece('d', 1, new Queen(board, Color.White));
             insertNewPiece('a', 2, new Pawn(board, Color.White, this));
-            insertNewPiece('b', 2, new Pawn(board, Color.White, this));
+            /* insertNewPiece('b', 2, new Pawn(board, Color.White, this));
             insertNewPiece('c', 2, new Pawn(board, Color.White, this));
             insertNewPiece('d', 2, new Pawn(board, Color.White, this));
             insertNewPiece('e', 2, new Pawn(board, Color.White, this));
             insertNewPiece('f', 2, new Pawn(board, Color.White, this));
             insertNewPiece('g', 2, new Pawn(board, Color.White, this));
-            insertNewPiece('h', 2, new Pawn(board, Color.White, this));
+            insertNewPiece('h', 2, new Pawn(board, Color.White, this));*/
 
 
             insertNewPiece('e', 8, new King(board, Color.Black, this));
@@ -114,14 +114,14 @@ namespace chess {
             insertNewPiece('g', 8, new Knight(board, Color.Black));
             insertNewPiece('b', 8, new Knight(board, Color.Black));
             insertNewPiece('d', 8, new Queen(board, Color.Black));
-            insertNewPiece('a', 7, new Pawn(board, Color.Black, this));
-            insertNewPiece('b', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('h', 7, new Pawn(board, Color.Black, this));
+            /*insertNewPiece('b', 7, new Pawn(board, Color.Black, this));
             insertNewPiece('c', 7, new Pawn(board, Color.Black, this));
             insertNewPiece('d', 7, new Pawn(board, Color.Black, this));
             insertNewPiece('e', 7, new Pawn(board, Color.Black, this));
             insertNewPiece('f', 7, new Pawn(board, Color.Black, this));
             insertNewPiece('g', 7, new Pawn(board, Color.Black, this));
-            insertNewPiece('h', 7, new Pawn(board, Color.Black, this));
+            insertNewPiece('a', 7, new Pawn(board, Color.Black, this));*/
         }
 
         public void undoMovement(Position start, Position end, Piece capturedPiece) {
@@ -161,11 +161,22 @@ namespace chess {
         }
 
         public void makePlay(Position start, Position end) {
-            Piece capturedPiece = executeMove(start, end);
+            Piece capturedPiece = executeMove(start, end);  
             if (isInCheck(currentPlayer)) {
                 undoMovement(start, end, capturedPiece);
                 throw new BoardException("You can't put yourself in check!");
             }
+            Piece piece = board.piece(end);
+            if (piece is Pawn) {
+                if ((piece.color == Color.White && end.linha == 0) || (piece.color == Color.Black && end.linha == 7)) {
+                    piece = board.removePiece(end);
+                    pieces.Remove(piece);
+                    Piece queen = new Queen(board, piece.color);
+                    board.insertPiece(queen, end);
+                    pieces.Add(queen);
+                }
+            }
+
             if (isInCheck(enemy(currentPlayer))) {
                 check = true;
             } else {
@@ -177,7 +188,7 @@ namespace chess {
                 turn++;
                 changePlayer();
             }
-            Piece piece = board.piece(end);
+            
             if (piece is Pawn && (end.linha == start.linha - 2 || end.linha == start.linha + 2)) {
                 vulnerableEnPassant = piece;
             } else {

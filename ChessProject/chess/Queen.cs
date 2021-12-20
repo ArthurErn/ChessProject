@@ -51,23 +51,44 @@ namespace chess {
             }
             pos.defineValues(position.linha - 1, position.coluna);
             //N
-            if (board.validPosition(pos) && canMove(pos)) {
+            pos.defineValues(position.linha - 1, position.coluna);
+            while (board.validPosition(pos) && canMove(pos)) {
                 mat[pos.linha, pos.coluna] = true;
-            }
-            //E
-            pos.defineValues(position.linha, position.coluna + 1);
-            if (board.validPosition(pos) && canMove(pos)) {
-                mat[pos.linha, pos.coluna] = true;
+                if (board.piece(pos) != null && board.piece(pos).color != color) {
+                    break;
+                }
+                pos.linha = pos.linha - 1;
+
             }
             //S
             pos.defineValues(position.linha + 1, position.coluna);
-            if (board.validPosition(pos) && canMove(pos)) {
+            while (board.validPosition(pos) && canMove(pos)) {
                 mat[pos.linha, pos.coluna] = true;
+                if (board.piece(pos) != null && board.piece(pos).color != color) {
+                    break;
+                }
+                pos.linha = pos.linha + 1;
+
+            }
+            //E
+            pos.defineValues(position.linha, position.coluna + 1);
+            while (board.validPosition(pos) && canMove(pos)) {
+                mat[pos.linha, pos.coluna] = true;
+                if (board.piece(pos) != null && board.piece(pos).color != color) {
+                    break;
+                }
+                pos.coluna = pos.coluna + 1;
+
             }
             //W
             pos.defineValues(position.linha, position.coluna - 1);
-            if (board.validPosition(pos) && canMove(pos)) {
+            while (board.validPosition(pos) && canMove(pos)) {
                 mat[pos.linha, pos.coluna] = true;
+                if (board.piece(pos) != null && board.piece(pos).color != color) {
+                    break;
+                }
+                pos.coluna = pos.coluna - 1;
+
             }
             return mat;
         }
